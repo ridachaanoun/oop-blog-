@@ -1,9 +1,10 @@
 <?php
-require_once '../db/database.php'; // Make sure to import the Database class
-require_once '../classes/User.php'; // Include User class for validation
+require_once '../db/database.php'; 
+require_once '../classes/User.php';
 require_once '../validators/Validator.php';
 
 session_start();
+$db = (new database )->connect();
 
 // Check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -21,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // If validation fails, redirect to the login page with errors
         $queryString = http_build_query([
             'errors' => $validator->getErrors(),
-            'from' => 'Login' // Indicate the source of the error
         ]);
         header("Location: ../pages/register&login.php?$queryString");
         exit();
@@ -43,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // If login fails, redirect to the login page with error message
         $queryString = http_build_query([
             'errors' => ['login' => 'Invalid email or password.'],
-            'from' => 'Login'
         ]);
         header("Location: ../pages/register&login.php?$queryString");
         exit();

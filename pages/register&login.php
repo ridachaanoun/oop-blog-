@@ -1,6 +1,6 @@
 <?php
 $errors = [];
-$showRegistrationForm = true; // Default to show the registration form
+$showRegistrationForm = false; // Default to show the registration form
 
 if (isset($_GET['errors']) && is_array($_GET['errors'])) {
     $errors = $_GET['errors']; // Directly assign the array to $errors

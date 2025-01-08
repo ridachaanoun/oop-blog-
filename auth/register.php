@@ -27,10 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($result['status'] === 'success') {
             // Redirect to login page with success message
-            header('Location: ../index.php?success=1');
+            header('Location: ../pages/register&login.php');
         } else {
             // Redirect to registration form with registration error message
-            header('Location: ../pages/register&login.php?'.http_build_query(["errors" => $result['message']]));
+            $result ["from"] = "Registration";
+            $queryString = http_build_query(['errors' => $result]);
+            header('Location: ../pages/register&login.php?'. $queryString );
         }
     } else {
         // Get validation errors and redirect back with error messages
