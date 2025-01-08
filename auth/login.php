@@ -1,9 +1,8 @@
 <?php
+session_start();
 require_once '../db/database.php'; 
 require_once '../classes/User.php';
 require_once '../validators/Validator.php';
-
-session_start();
 $db = (new database )->connect();
 
 // Check if form is submitted
@@ -35,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($loginResult['status'] === 'success') {
         // Login successful, redirect to the user dashboard or another page
-        $_SESSION['user_id'] = $loginResult['user_id']; // Store user info in session
-        $_SESSION['username'] = $loginResult['username'];
+        // $_SESSION['user_id'] = $loginResult['user_id']; // Store user info in session
+        // $_SESSION['username'] = $loginResult['username'];
         header('Location: ../index.php'); // Redirect to a protected page
         exit();
     } else {
