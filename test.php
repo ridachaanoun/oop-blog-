@@ -78,3 +78,30 @@ $article = new Article($db);
 
 //     <button type="submit">Submit</button>
 // </form>
+
+
+
+
+$db = (new Database())->connect();
+
+
+$comment = new Comment($db);
+
+// Example 1: Create a new comment
+$result = $comment->createComment(6, 1, "This is a great article!");
+echo json_encode($result);
+
+// // Example 2: Fetch all comments for an article
+// $comments = $comment->getCommentsByArticle(1);
+// echo "<h3>Comments for Article ID 1:</h3>";
+// foreach ($comments as $c) {
+//     echo "<p><strong>{$c['username']}</strong>: {$c['content']} ({$c['created_at']})</p>";
+// }
+
+// // Example 3: Update a comment
+// $updateResult = $comment->updateComment(3, 2, "Updated comment content.");
+// echo json_encode($updateResult);
+
+// // Example 4: Delete a comment
+// $deleteResult = $comment->deleteComment(3, 2);
+// echo json_encode($deleteResult);
