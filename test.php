@@ -17,7 +17,7 @@
 
 
 // Instantiate the Article class
-$article = new Article($db);
+// $article = new Article($db);
 
 // Example usage
 
@@ -82,14 +82,14 @@ $article = new Article($db);
 
 
 
-$db = (new Database())->connect();
+// $db = (new Database())->connect();
 
 
-$comment = new Comment($db);
+// $comment = new Comment($db);
 
-// Example 1: Create a new comment
-$result = $comment->createComment(6, 1, "This is a great article!");
-echo json_encode($result);
+// // Example 1: Create a new comment
+// $result = $comment->createComment(6, 1, "This is a great article!");
+// echo json_encode($result);
 
 // // Example 2: Fetch all comments for an article
 // $comments = $comment->getCommentsByArticle(1);
@@ -105,3 +105,39 @@ echo json_encode($result);
 // // Example 4: Delete a comment
 // $deleteResult = $comment->deleteComment(3, 2);
 // echo json_encode($deleteResult);
+
+
+
+
+
+$pdo = (new Database())->connect();
+
+// Initialize the Category class
+$category = new Category($pdo);
+
+// Start the session and set user information
+// session_start();
+// $_SESSION["user_id"] = 1; // Example user ID
+// $_SESSION["role"] = "admin"; // Example role: admin or user
+
+// // Example 1: Add a category (only admins can add categories)
+// echo "<h3>Adding a Category:</h3>";
+// $result = $category->addCategory("Technology");
+// echo $result['message'] . "<br>";
+
+// Example 2: Delete a category (only admins can delete categories)
+// echo "<h3>Deleting a Category:</h3>";
+// $result = $category->deleteCategory(5); // Assuming category ID 1 exists
+// echo $result['message'] . "<br>";
+
+// Example 3: List all categories
+// echo "<h3>List of Categories:</h3>";
+// $categories = $category->listCategories();
+
+// if (count($categories) > 0) {
+//     foreach ($categories as $cat) {
+//         echo $cat['id'] . ": " . $cat['name'] . "<br>";
+//     }
+// } else {
+//     echo "No categories found.";
+// }
