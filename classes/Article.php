@@ -90,16 +90,31 @@ class Article {
     }
 
     // Delete an article by its ID
-    public function delete(int $id): array {
+    public function delete(int $id, int $userId): array {
         try {
+            // Check if the article belongs to the logged-in user
+            $checkStmt = $this->db->prepare("SELECT user_id FROM articles WHERE id = :id");
+            $checkStmt->execute(['id' => $id]);
+            $article = $checkStmt->fetch(PDO::FETCH_ASSOC);
+    
+            if (!$article) {
+                return ['status' => 'error', 'message' => 'Article not found'];
+            }
+    
+            if ($article['user_id'] !== $userId) {
+                return ['status' => 'error', 'message' => 'Permission denied. You can only delete your own articles.'];
+            }
+    
+            // Delete the article
             $stmt = $this->db->prepare("DELETE FROM articles WHERE id = :id");
             $stmt->execute(['id' => $id]);
-
+    
             return ['status' => 'success', 'message' => 'Article deleted successfully'];
         } catch (PDOException $e) {
             return ['status' => 'error', 'message' => 'Failed to delete article: ' . $e->getMessage()];
         }
     }
+    
 
     // List all articles
     public function listAll(): array {
@@ -107,5 +122,23 @@ class Article {
         $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return ['status' => 'success', 'data' => $articles];
+    }
+    public function getUserArticles(int $userId): array {
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM articles WHERE user_id = :user_id");
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return [
+                'status' => 'success',
+                'data' => $articles
+            ];
+        } catch (PDOException $e) {
+            return [
+                'status' => 'error',
+                'message' => 'Failed to fetch user articles: ' . $e->getMessage()
+            ];
+        }
     }
 }
