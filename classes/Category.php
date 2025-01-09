@@ -1,5 +1,4 @@
 <?php
-require_once '../db/database.php';
 
 class Category {
     private $db;

@@ -1,82 +1,6 @@
 <?php
-// session_start();
-// echo $_SESSION["user_id"];
-// echo $_SESSION["role"];
+include "header.php"
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"> -->
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
-<header class='flex shadow-lg py-4 px-4 sm:px-10 bg-white font-[sans-serif] min-h-[70px] tracking-wide relative z-50'>
-      <div class='flex flex-wrap items-center justify-between gap-4 w-full'>
-        <a href="javascript:void(0)"
-          class="lg:absolute max-lg:left-10 lg:top-2/4 lg:left-2/4 lg:-translate-x-1/2 lg:-translate-y-1/2 max-sm:hidden"><img
-            src="https://readymadeui.com/readymadeui.svg" alt="logo" class='w-36' />
-        </a>
-        <a href="javascript:void(0)"
-          class="hidden max-sm:block"><img
-            src="https://readymadeui.com/readymadeui-short.svg" alt="logo" class='w-9' />
-        </a>
-
-        <div id="collapseMenu"
-          class='max-lg:hidden lg:!block max-lg:w-full max-lg:fixed max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50'>
-          <button id="toggleClose" class='lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white w-9 h-9 flex items-center justify-center border'>
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 fill-black" viewBox="0 0 320.591 320.591">
-              <path
-                d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z"
-                data-original="#000000"></path>
-              <path
-                d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z"
-                data-original="#000000"></path>
-            </svg>
-          </button>
-
-          <ul
-            class='lg:flex lg:gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50'>
-            <li class='mb-6 hidden max-lg:block'>
-              <a href="javascript:void(0)"><img src="https://readymadeui.com/readymadeui.svg" alt="logo" class='w-36' />
-              </a>
-            </li>
-            <li class='max-lg:border-b max-lg:py-3 px-3'>
-              <a href='javascript:void(0)'
-                class='hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]'>Home</a>
-            </li>
-            <li class='max-lg:border-b max-lg:py-3 px-3'><a href='javascript:void(0)'
-              class='hover:text-[#007bff] text-[#333] block font-semibold text-[15px]'>Team</a>
-            </li>
-            <li class='max-lg:border-b max-lg:py-3 px-3'><a href='javascript:void(0)'
-              class='hover:text-[#007bff] text-[#333] block font-semibold text-[15px]'>Feature</a>
-            </li>
-            <li class='max-lg:border-b max-lg:py-3 px-3'><a href='javascript:void(0)'
-              class='hover:text-[#007bff] text-[#333] block font-semibold text-[15px]'>Blog</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class='flex items-center ml-auto space-x-6'>
-          <button class='font-semibold text-[15px] border-none outline-none'><a href='javascript:void(0)'
-            class='text-[#007bff] hover:underline'>Login</a></button>
-          <button
-            class='px-4 py-2 text-sm rounded-sm font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]'>Sign
-            up</button>
-
-          <button id="toggleOpen" class='lg:hidden'>
-            <svg class="w-7 h-7" fill="#333" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
-                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                clip-rule="evenodd"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </header>
 
     <nav
       class="bg-white shadow-lg h-screen fixed top-0 left-0 min-w-[220px] py-6 px-6 font-[sans-serif] flex flex-col overflow-auto">
@@ -111,7 +35,7 @@
                 d="M197.332 170.668h-160C16.746 170.668 0 153.922 0 133.332v-96C0 16.746 16.746 0 37.332 0h160c20.59 0 37.336 16.746 37.336 37.332v96c0 20.59-16.746 37.336-37.336 37.336zM37.332 32A5.336 5.336 0 0 0 32 37.332v96a5.337 5.337 0 0 0 5.332 5.336h160a5.338 5.338 0 0 0 5.336-5.336v-96A5.337 5.337 0 0 0 197.332 32zm160 480h-160C16.746 512 0 495.254 0 474.668v-224c0-20.59 16.746-37.336 37.332-37.336h160c20.59 0 37.336 16.746 37.336 37.336v224c0 20.586-16.746 37.332-37.336 37.332zm-160-266.668A5.337 5.337 0 0 0 32 250.668v224A5.336 5.336 0 0 0 37.332 480h160a5.337 5.337 0 0 0 5.336-5.332v-224a5.338 5.338 0 0 0-5.336-5.336zM474.668 512h-160c-20.59 0-37.336-16.746-37.336-37.332v-96c0-20.59 16.746-37.336 37.336-37.336h160c20.586 0 37.332 16.746 37.332 37.336v96C512 495.254 495.254 512 474.668 512zm-160-138.668a5.338 5.338 0 0 0-5.336 5.336v96a5.337 5.337 0 0 0 5.336 5.332h160a5.336 5.336 0 0 0 5.332-5.332v-96a5.337 5.337 0 0 0-5.332-5.336zm160-74.664h-160c-20.59 0-37.336-16.746-37.336-37.336v-224C277.332 16.746 294.078 0 314.668 0h160C495.254 0 512 16.746 512 37.332v224c0 20.59-16.746 37.336-37.332 37.336zM314.668 32a5.337 5.337 0 0 0-5.336 5.332v224a5.338 5.338 0 0 0 5.336 5.336h160a5.337 5.337 0 0 0 5.332-5.336v-224A5.336 5.336 0 0 0 474.668 32zm0 0"
                 data-original="#000000" />
             </svg>
-            <span>Dashboard</span>
+            <span>articls</span>
           </a>
         </li>
         <li>

@@ -7,7 +7,7 @@ class Article {
     }
 
     // Upload image
-    private function uploadImage(array $file): string {
+     public function uploadImage(array $file): string {
         $fileName = basename($file["name"]);
         $targetFilePath = "uploads/images/" . uniqid() . "_" . $fileName;
 
@@ -55,14 +55,29 @@ class Article {
     }
 
     // Update an article by its ID
-    public function update(int $id, string $title, string $content, array $imageFile = null, int $categoryId): array {
+    public function update(int $id, int $userId, string $title, string $content, array $imageFile = null, int $categoryId): array {
         try {
+            // Verify ownership of the article
+            $checkStmt = $this->db->prepare("SELECT user_id FROM articles WHERE id = :id");
+            $checkStmt->execute(['id' => $id]);
+            $article = $checkStmt->fetch(PDO::FETCH_ASSOC);
+    
+            if (!$article) {
+                return ['status' => 'error', 'message' => 'Article not found'];
+            }
+    
+            if ($article['user_id'] !== $userId) {
+                return ['status' => 'error', 'message' => 'Permission denied. You can only update your own articles.'];
+            }
+    
             $imagePath = null;
-
+    
+            // Handle image upload if a new file is provided
             if ($imageFile && $imageFile['tmp_name']) {
                 $imagePath = $this->uploadImage($imageFile);
             }
-
+    
+            // Build the update query
             $query = "UPDATE articles SET title = :title, content = :content, category_id = :category_id, updated_at = NOW()";
             $params = [
                 'title' => $title,
@@ -70,17 +85,17 @@ class Article {
                 'category_id' => $categoryId,
                 'id' => $id,
             ];
-
+    
             if ($imagePath) {
                 $query .= ", image = :image";
                 $params['image'] = $imagePath;
             }
-
+    
             $query .= " WHERE id = :id";
-
+    
             $stmt = $this->db->prepare($query);
             $stmt->execute($params);
-
+    
             return ['status' => 'success', 'message' => 'Article updated successfully'];
         } catch (PDOException $e) {
             return ['status' => 'error', 'message' => 'Failed to update article: ' . $e->getMessage()];
@@ -88,6 +103,7 @@ class Article {
             return ['status' => 'error', 'message' => $e->getMessage()];
         }
     }
+    
 
     // Delete an article by its ID
     public function delete(int $id, int $userId): array {
@@ -141,4 +157,21 @@ class Article {
             ];
         }
     }
+    // Get article by ID
+public function getById(int $id): array {
+    try {
+        $stmt = $this->db->prepare("SELECT * FROM articles WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+        
+        $article = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($article) {
+            return ['status' => 'success', 'data' => $article];
+        } else {
+            return ['status' => 'error', 'message' => 'Article not found'];
+        }
+    } catch (PDOException $e) {
+        return ['status' => 'error', 'message' => 'Failed to retrieve article: ' . $e->getMessage()];
+    }
+}
 }
